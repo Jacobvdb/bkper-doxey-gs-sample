@@ -1,18 +1,18 @@
 // Compiled using ts2gas 3.4.4 (TypeScript 3.6.2)
 var exports = exports || {};
 var module = module || { exports: exports };
-//test
+
 function generateDoc() {
   var bookId = "agtzfmJrcGVyLWhyZHITCxIGTGVkZ2VyGICAwNnBiqQIDA";
-  var customerName = "More & More";
+  var customerName = "More & More";  // accounts receivable on the book
   var model = generateModel(bookId, customerName);
-  Logger.log(JSON.stringify(model, null, 2));
   merge(model);
 }
-// 
-// get the data from Bkper for the document
-//
+
+// Prepare the model with Bkper data 
+
 function generateModel(bookId, customerName) {
+  // Book Properties
   var book = BkperApp.openById(bookId);
   var model = {
     book: {
@@ -20,7 +20,8 @@ function generateModel(bookId, customerName) {
       name: book.getName(),
     }
   }
-  
+
+  // Account properties
   var accounts = book.getAccounts();
   for (var i = 0; i < accounts.length; i++) {
     var account = accounts[i];
@@ -32,7 +33,8 @@ function generateModel(bookId, customerName) {
       }
     }
   }
-  
+
+  // transactions
   model.transactions = [];
   
   var transactionIterator = book.getTransactions("account:'More & More'");
@@ -51,10 +53,11 @@ function generateModel(bookId, customerName) {
   
   return model;
 }
-// doxey.io Merge 
-// https://github.com/floreysoft/doxey-client-gappsscript-sample
+
+//
+//  Merge model in document  
+//
 function merge(model) {
-  //Logger.log(model);
   var params = {
     'template': "https://docs.google.com/document/d/1YZsebruAQcgzRyUn1t1iatVlP0UKzLulZoS5FY5RJho/edit",
     'model': model,
