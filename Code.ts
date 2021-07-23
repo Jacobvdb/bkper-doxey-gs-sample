@@ -76,10 +76,6 @@ function merge(model) {
     document.setName("Bkper Doxey GS sample.pdf");
     DriveApp.getFolderById("1543DzFsTzXco2z34bpdKkdGbPu42tkjl").createFile(document);
 }
-function getMyBook() {
-    var bookId = "agtzfmJrcGVyLWhyZHITCxIGTGVkZ2VyGICAwNnBiqQIDA";
-    var book = BkperApp.openById(bookId);
-}
 
 
 
